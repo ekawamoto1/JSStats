@@ -17,7 +17,9 @@ synchronous input in Node.js: [Getting User Input in Node.js](https://www.codeca
 
 relationship between node.js (server-side) and browser JavaScript (client-side) and its DOM (Document-Object Model): [Node.js document is not defined](https://stackoverflow.com/questions/32126003/node-js-document-is-not-defined)
 
+using GitHub Pages: [What is GitHub Pages?](https://pages.github.com/)
 
+basic HTML with JavaScript: [How does JavaScript work and how can I build simple calculators with it?](https://computer.howstuffworks.com/javascript.htm#:~:text=Inside%20a%20normal%20Web%20page,JavaScript%20in%20many%20different%20ways.)
 
 
 using JavaScript to get text entered from a textbox: [#20 Taking Input from user in JavaScript | TextBox](https://www.youtube.com/watch?v=lThuZY0-S_8)
