@@ -17,18 +17,125 @@
   </script>
 -->
   <script type="text/javascript">
+/*
     function temp(form)
     {
       var f = parseFloat(form.DegF.value, 10);
       var c = 0;
       c = (f - 32.0) * 5.0 / 9.0;
-      form.DegC.value = c.toFixed(1); <!-- report to one decimal place -->
+      form.DegC.value = c.toFixed(1);  // reports to one decimal place
     }
+*/
+    function ComputeExtremes()
+    {
+      var max = -Infinity;
+      var min = Infinity;
+      var n = arguments.length;
+      // alert ("arguments.length = " + n);
+      for (var i = 0; i < n; i++)
+      {
+        if (arguments[i] > max)
+        {
+          max = arguments[i];
+        }
+        if (arguments[i] < min)
+        {
+          min = arguments[i];
+        }
+      }
+
+      return [min, max];
+    }
+
+    function ComputeMean()
+    {
+      var sum = 0.0;
+      var n = arguments.length;
+      for (var i = 0; i < n; i++)
+      {
+        sum += arguments[i];
+      }
+
+      return sum / n;
+    }
+
+    // arguments: inArr, mean (yes, in this order)
+    // inArr contains the numbers
+    // mean is their average
+    function ComputeStdev()
+    {
+      var sum = 0.0, stdev = 0.0;
+      var m = arguments.length;  // this includes the mean, which is the last arg
+      // alert ("arguments.length = " + m);
+      avg = arguments[m - 1];
+      for (var i = 0; i < m - 1; i++)
+      {
+        var term = arguments[i] - avg;
+        sum += term * term;
+      }
+      if (m > 2)
+      {
+        stdev = Math.sqrt((sum / (m - 2)));
+      }
+
+      return stdev;
+    }
+
+    function main(form)
+    {
+      var nStr = form.Numbers.value;
+      var outStr = "";
+
+      var sArr = nStr.split(',');
+      var n = sArr.length;
+      if (n == 0 || nStr.length == 0)
+      {
+        outStr = "No data points to be analyzed.";
+        alert(outStr);
+        return;
+      }
+      var nArr = new Array(n);
+
+      var min = 1.0E10;
+      var max = -1.0E10;
+      var sum = 0;
+      for (var i = 0; i < n; i++)
+      {
+        nArr[i] = parseFloat(sArr[i].trim());
+        outStr += "data point " + (i + 1) + ": " + nArr[i] + "\n";
+        /*
+        sum += nArr[i];
+        if (nArr[i] > max)
+        {
+          max = nArr[i];
+        }
+        if (nArr[i] < min)
+        {
+          min = nArr[i];
+        }
+        */
+      }
+      var minmax = ComputeExtremes(...nArr);
+      // var mean = sum / n;
+      var mean = ComputeMean(...nArr);
+      outStr += "\nFor " + n + " data point(s), \n";
+      outStr += "    the maximum is " + minmax[1].toFixed(2) + "\n";
+      outStr += "    the minimum is " + minmax[0].toFixed(2) + "\n";
+      outStr += "    the mean (average) is " + mean.toFixed(2) + "\n";
+      if (n > 1)
+      {
+        var stdev = ComputeStdev(...nArr, mean);
+        outStr += "    the std dev is " + stdev.toFixed(2) + "\n";
+      }
+
+      alert(outStr);
+    }
+
   </script>
   <noscript>
     Sorry, your browser does not support JavaScript!
   </noscript>
-
+<!--
   <form>
     <h2>Fahrenheit to Celsius Converter</h2>
     Enter a temperature in °F: 
@@ -36,9 +143,22 @@
     <p>
     Click this button to calculate the temperature in °C   
     <input name="calc" value="Calculate" type=button onClick=temp(this.form)>
-    <p>
+    </p>
     Temperature in °C is: 
     <input name="DegC" readonly size=25>
+  </form>
+-->
+  <form>
+    <h2> JavaScript Stats Calculator</h2>
+    Enter a set of numbers:
+    <input name="Numbers" value="" maxlength="25" size=25>
+    <p>
+      Click this button to calculate the max, min, and mean of the numbers  
+      <input name="calc" value="Calculate" type=button onClick=main(this.form)>
+    </p>
+    <p>
+      
+    </p>
   </form>
 
 </body>
