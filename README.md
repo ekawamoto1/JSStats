@@ -1,4 +1,4 @@
-# JavaScriptStats README file
+# JSStats README file
 
 
 ## References
@@ -30,6 +30,8 @@ using JavaScript to get text entered from a textbox: [#20 Taking Input from user
 
 
 ## Running Journal
+
+Wed 07/15: decided that pursuing Node.js file to be called from HTML was pointless (webpage and its JS are client-side, while Node.js is server-side), so write a static webpage with embedded JavaScript, and serve it from a GitHub project page 
 
 Mon 07/13: wrote Hello, world program in JavaScript, using 'node HelloWorld.js' command in Terminal to run at command line
 
