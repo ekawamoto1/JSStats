@@ -1,41 +1,47 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>JavaScript Example</title>
+  <title>My First HTML/JavaScript file</title>
 </head>
+
 <body>
+<!--
   <h1>Hello from HTML!</h1>
-<!--  <script src="file:////Users/ehk/Documents/jGrasp Projects/JavaScriptStats/index.js"></script> -->
   <script type="text/javascript" src="index.js"></script> 
   <script type="text/javascript">
-     document.write("Hello from embedded JavaScript!");
-     console.log("Console write from embedded JavaScript!");
+    document.write("Hello from embedded JavaScript!");
+    console.log("Console write from embedded JavaScript!");
   </script>
+-->
   <script type="text/javascript">
-function temp(form)
-{
-  var f = parseFloat(form.DegF.value, 10);
-  var c = 0;
-  c = (f - 32.0) * 5.0 / 9.0;
-  form.DegC.value = c;
-}
+    function temp(form)
+    {
+      var f = parseFloat(form.DegF.value, 10);
+      var c = 0;
+      c = (f - 32.0) * 5.0 / 9.0;
+      form.DegC.value = c.toFixed(1); <!-- report to one decimal place -->
+    }
   </script>
-  <noscript>Sorry, your browser does not support JavaScript!</noscript>
-<form>
-<h2>Fahrenheit to Celsius Converter</h2>
-Enter a temperature in degrees F: 
-<INPUT NAME="DegF" VALUE="0" MAXLENGTH="15" SIZE=15>
-<p>
-Click this button to calculate the temperature 
-in degrees C:
-<INPUT NAME="calc" VALUE="Calculate" TYPE=BUTTON 
-onClick=temp(this.form)>
-<p>
-Temperature in degrees C is: 
-<INPUT NAME="DegC" READONLY SIZE=15>
-</form>
+  <noscript>
+    Sorry, your browser does not support JavaScript!
+  </noscript>
+
+  <form>
+    <h2>Fahrenheit to Celsius Converter</h2>
+    Enter a temperature in °F: 
+    <input name="DegF" value="0" maxlength="15" size=25>
+    <p>
+    Click this button to calculate the temperature in °C   
+    <input name="calc" value="Calculate" type=button onClick=temp(this.form)>
+    <p>
+    Temperature in °C is: 
+    <input name="DegC" readonly size=25>
+  </form>
+
 </body>
+
 </html>
 
