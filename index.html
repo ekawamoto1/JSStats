@@ -151,7 +151,9 @@
     // for data entered in form as a string of comma-separated values
     function AnalyzeDataPointsFromForm(form)
     {
+      // clear file selection when comma-separated list of numbers is analyzed
       document.getElementById('file').value = null; // setting this to '' or "" also work
+
       var outStr = "";
       var nStr = form.Numbers.value;
       var sArr = nStr.split(',');  // returns 1 even if nStr is empty
@@ -193,7 +195,9 @@
         var reader = new FileReader();
         reader.onload = function(progressEvent)  // this only executes when a file is loaded
         {
+          // clear comma-separated number entry text field when file is selected
           document.getElementById('csv').value = "";
+          
           // entire file is read into a string 'this.result'
           if (this.result.length == 0)
           {
