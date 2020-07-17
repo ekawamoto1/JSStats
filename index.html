@@ -8,7 +8,9 @@
 </head>
 
 <body>
+
   <script type="text/javascript">
+
     function ComputeExtremes()
     {
       var max = -Infinity, min = Infinity;
@@ -156,7 +158,9 @@
       if (n == 0 || nStr.length == 0)
       {
         outStr = "No data points to be analyzed.";
-        alert(outStr);
+        //alert(outStr);
+        var outputString = document.getElementById('output');
+        outputString.innerHTML = outStr;
         return;
       }
 
@@ -170,7 +174,9 @@
       outStr += PrintDataPoints(...nArr);
       outStr += PrintOutStats(...nArr);
 
-      alert(outStr);
+      //alert(outStr);
+      var outputString = document.getElementById('output');
+      outputString.innerHTML = outStr;
     }
 
     // for data contained in a local .txt file whose name is provided
@@ -190,7 +196,9 @@
           if (this.result.length == 0)
           {
             outStr = "Data file " + file.name + " is empty.";
-            alert(outStr);
+            // alert(outStr);
+            var outputString = document.getElementById('output');
+            outputString.innerHTML = outStr;
             return;
           }
 
@@ -215,7 +223,9 @@
           outStr += PrintDataPoints(...nArr);
           outStr += PrintOutStats(...nArr);
 
-          alert(outStr);
+          //alert(outStr);
+          var outputString = document.getElementById('output');
+          outputString.innerHTML = outStr;
         };
         reader.readAsText(file);
 
@@ -241,11 +251,91 @@
     <label for="File">Or, choose a file with data to analyze</label>
     <input name="File" type="file" id="file" accept=".txt" onclick="AnalyzeDataPointsFromFile();">
   </div>
-
-      
-
+  <p></p>
+  <textarea id="output" rows="19" cols="35" readonly="readonly"></textarea>
 
 </body>
 
 </html>
 
+<!--
+entered "1, 7, 6, 2, 5, 3, 4"
+Data point 1: 1.00
+Data point 2: 7.00
+Data point 3: 6.00
+Data point 4: 2.00
+Data point 5: 5.00
+Data point 6: 3.00
+Data point 7: 4.00
+
+For 7 data point(s), 
+    the maximum is 7.00
+    the minimum is 1.00
+    the mean (average) is 4.00
+    the std dev is 2.16
+    the median is 4.00
+
+
+entered "6, 1, 2, 5, 4, 3"
+Data point 1: 6.00
+Data point 2: 1.00
+Data point 3: 2.00
+Data point 4: 5.00
+Data point 5: 4.00
+Data point 6: 3.00
+
+For 6 data point(s), 
+    the maximum is 6.00
+    the minimum is 1.00
+    the mean (average) is 3.50
+    the std dev is 1.87
+    the median is 3.50
+
+
+entered "3.5"
+Data point 1: 3.50
+
+For 1 data point(s), 
+    the maximum is 3.50
+    the minimum is 3.50
+    the mean (average) is 3.50
+
+
+entered "" (nothing)
+No data points to be analyzed.
+
+
+testdata1.txt
+Data point 1: 60.00
+Data point 2: 62.00
+Data point 3: 57.00
+Data point 4: 58.00
+Data point 5: 68.00
+    ...
+Data point 6: 65.00
+Data point 7: 63.00
+Data point 8: 59.00
+Data point 9: 60.00
+Data point 10: 58.00
+
+For 10 data point(s), 
+    the maximum is 68.00
+    the minimum is 57.00
+    the mean (average) is 61.00
+    the std dev is 3.50
+    the median is 60.00
+
+
+testdata2.txt
+Data point 1: 23.50
+
+For 1 data point(s), 
+    the maximum is 23.50
+    the minimum is 23.50
+    the mean (average) is 23.50
+
+
+testdata3.txt
+Data file testdata3.txt is empty.    
+
+-->

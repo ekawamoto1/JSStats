@@ -36,6 +36,14 @@ event-driven read file: [How to use Javascript to read local text file and read 
 
 fix location of renamed remote repo: [Error with renamed repo in github, “remote: This repository moved. Please use the new location”](https://stackoverflow.com/questions/30443333/error-with-renamed-repo-in-github-remote-this-repository-moved-please-use-th)
 
+use of placeholder and innerHTML to add to page's HTML without erasing it with document.write(): [How do I add something to my html using javascript without erasing the whole page](https://stackoverflow.com/questions/11907053/how-do-i-add-something-to-my-html-using-javascript-without-erasing-the-whole-pag)
+
+use of innerHTML property: [JavaScript HTML DOM - Changing HTML](https://www.w3schools.com/js/js_htmldom_html.asp)
+
+use textarea element to render a string's line breaks without reformatting as HTML: [Render a string in HTML and preserve spaces and linebreaks](https://stackoverflow.com/questions/9492249/render-a-string-in-html-and-preserve-spaces-and-linebreaks#:~:text=You%20can%20use%20white%2Dspace,to%20manually%20insert%20html%20elements.&text=You%20would%20want%20to%20replace,(line%20break%20in%20html).)
+
+use of textarea tag: [HTML textarea Tag](https://www.w3schools.com/tags/tag_textarea.asp)
+
 ## Running Journal
 
 Thu 07/16: implemented basic stats functionality and modularization of calculations; now working on choosing, opening, and reading text files
