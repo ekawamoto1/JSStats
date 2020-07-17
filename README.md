@@ -46,6 +46,8 @@ use of textarea tag: [HTML textarea Tag](https://www.w3schools.com/tags/tag_text
 
 ## Running Journal
 
+Fri 07/17: added ability to output to HTML document without overwriting it, replacing use of alert pop-up windows (whose contents cannot be copied-and-pasted)
+
 Thu 07/16: implemented basic stats functionality and modularization of calculations; now working on choosing, opening, and reading text files
 
 Wed 07/15: decided that pursuing Node.js file to be called from HTML was pointless (webpage and its JS are client-side, while Node.js is server-side), so write a static webpage with embedded JavaScript, and serve it from a GitHub project page 
