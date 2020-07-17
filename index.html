@@ -70,9 +70,9 @@
       var n = arguments.length;
       if (n > 1)
       {
-        var dArr = [...arguments];
+        var dArr = [...arguments];  // use spread operator to make deep copy of arguments array
         //var dArr = arguments.slice();  // why doesn't this work?
-        dArr.sort((a, b) => a - b);
+        dArr.sort((a, b) => a - b);  // sorting arguments array did not work - why?
 /*
         var outStr = "";
         for (var i = 0; i < n; i++)
@@ -95,11 +95,11 @@
       return median;
     }
 
-    function main(form)
-    {
-      var nStr = form.Numbers.value;
-      var outStr = "";
 
+    function main1(form)
+    {
+      var outStr = "";
+      var nStr = form.Numbers.value;
       var sArr = nStr.split(',');
       var n = sArr.length;
       if (n == 0 || nStr.length == 0)
@@ -108,13 +108,11 @@
         alert(outStr);
         return;
       }
-      var nArr = new Array(n);
 
-      var min = 1.0E10;
-      var max = -1.0E10;
-      var sum = 0;
+      var nArr = new Array(n);
       for (var i = 0; i < n; i++)
       {
+        console.log(sArr[i]);
         nArr[i] = parseFloat(sArr[i].trim());
         outStr += "data point " + (i + 1) + ": " + nArr[i] + "\n";
       }
@@ -135,6 +133,71 @@
       alert(outStr);
     }
 
+    function main2(form)
+    {
+      var outStr = "";
+      document.getElementById('file').onchange = function()
+      {
+        var file = this.files[0];
+        // var fName = file.name;
+        // alert(fName);  // hides path to fName for security reasons
+        var reader = new FileReader();
+        reader.onload = function(progressEvent)
+        {
+          if (this.result.length == 0)
+          {
+            outStr = "Data file " + file.name + " is empty.";
+            alert(outStr);
+            return;
+          }
+
+          // Entire file
+          // console.log(this.result);
+
+          // Line by line
+          var lines = this.result.split('\n');
+          var nArr = [];
+          var n = 0;
+          for (var line = 0; line < lines.length; line++)
+          {
+            console.log(lines[line]);
+            var lStr = lines[line].trim();
+            if (lStr.length > 0)
+            {
+              //outStr += lStr + "\n";
+              nArr[n] = parseFloat(lStr);
+              n++;
+            }
+          }
+          //outStr += n + " elements in nArr\n";
+          //alert(outStr);
+
+          for (var i = 0; i < n; i++)
+          {
+            //nArr[i] = parseFloat(sArr[i].trim());
+            outStr += "data point " + (i + 1) + ": " + nArr[i] + "\n";
+          }
+          var minmax = ComputeExtremes(...nArr);
+          var mean = ComputeMean(...nArr);
+          outStr += "\nFor " + n + " data point(s), \n";
+          outStr += "    the maximum is " + minmax[1].toFixed(2) + "\n";
+          outStr += "    the minimum is " + minmax[0].toFixed(2) + "\n";
+          outStr += "    the mean (average) is " + mean.toFixed(2) + "\n";
+          if (n > 1)
+          {
+            var stdev = ComputeStdev(...nArr, mean);
+            outStr += "    the std dev is " + stdev.toFixed(2) + "\n";
+            var med = ComputeMedian(...nArr);
+            outStr += "    the median is " + med.toFixed(2) + "\n";
+          }
+
+          alert(outStr);
+        };
+        reader.readAsText(file);
+
+      };
+    }
+
   </script>
   <noscript>
     Sorry, your browser does not support JavaScript!
@@ -146,12 +209,17 @@
     <input name="Numbers" value="" maxlength="25" size=25>
     <p>
       Click this button to calculate some basic statistics on the numbers  
-      <input name="calc" value="Calculate" type=button onClick=main(this.form)>
-    </p>
-    <p>
-      
+      <input name="calc" value="Calculate" type=button onClick=main1(this.form)>
     </p>
   </form>
+
+  <div>
+    <label for="File">Or, choose a file with data to analyze</label>
+    <input name="File" type="file" id="file" accept=".txt" onclick="main2();">
+  </div>
+
+      
+
 
 </body>
 
