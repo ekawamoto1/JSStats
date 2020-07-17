@@ -27,14 +27,14 @@ using JavaScript to get text entered from a textbox: [#20 Taking Input from user
 
 immutability of arguments array for functions: [Why isn't a function's arguments object an array in Javascript?](https://stackoverflow.com/questions/3242485/why-isnt-a-functions-arguments-object-an-array-in-javascript)
 
-file chooser in HTML/JS: [<input type="file">](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)
+file chooser in HTML/JS: [input type="file"](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)
 
 require() belongs to Node.js, not the standard JS API: [What is this Javascript “require”?](https://stackoverflow.com/questions/9901082/what-is-this-javascript-require)
 
 event-driven read file: [How to use Javascript to read local text file and read line by line?
 ](https://stackoverflow.com/questions/23331546/how-to-use-javascript-to-read-local-text-file-and-read-line-by-line)
 
-
+fix location of renamed remote repo: [Error with renamed repo in github, “remote: This repository moved. Please use the new location”](https://stackoverflow.com/questions/30443333/error-with-renamed-repo-in-github-remote-this-repository-moved-please-use-th)
 
 ## Running Journal
 
