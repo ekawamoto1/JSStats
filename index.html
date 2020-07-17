@@ -150,7 +150,7 @@
     }
 
 
-    function main1(form)
+    function AnalyzeDataPointsFromForm(form)
     {
       var outStr = "";
       var nStr = form.Numbers.value;
@@ -176,7 +176,7 @@
       alert(outStr);
     }
 
-    function main2(form)
+    function AnalyzeDataPointsFromFile(form)
     {
       var outStr = "";
       document.getElementById('file').onchange = function()
@@ -233,13 +233,13 @@
     <input name="Numbers" value="" maxlength="25" size=25>
     <p>
       Click this button to calculate some basic statistics on the numbers  
-      <input name="calc" value="Calculate" type=button onClick=main1(this.form)>
+      <input name="calc" value="Calculate" type=button onClick=AnalyzeDataPointsFromForm(this.form)>
     </p>
   </form>
 
   <div>
     <label for="File">Or, choose a file with data to analyze</label>
-    <input name="File" type="file" id="file" accept=".txt" onclick="main2();">
+    <input name="File" type="file" id="file" accept=".txt" onclick="AnalyzeDataPointsFromFile();">
   </div>
 
       
