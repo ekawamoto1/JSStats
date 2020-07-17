@@ -151,6 +151,7 @@
     // for data entered in form as a string of comma-separated values
     function AnalyzeDataPointsFromForm(form)
     {
+      document.getElementById('file').value = null; // setting this to '' or "" also work
       var outStr = "";
       var nStr = form.Numbers.value;
       var sArr = nStr.split(',');  // returns 1 even if nStr is empty
@@ -181,7 +182,7 @@
 
     // for data contained in a local .txt file whose name is provided
     // data is assumed to be one number per line ('\n'-separated values)
-    function AnalyzeDataPointsFromFile(form)
+    function AnalyzeDataPointsFromFile()
     {
       var outStr = "";
       document.getElementById('file').onchange = function()
@@ -192,6 +193,7 @@
         var reader = new FileReader();
         reader.onload = function(progressEvent)  // this only executes when a file is loaded
         {
+          document.getElementById('csv').value = "";
           // entire file is read into a string 'this.result'
           if (this.result.length == 0)
           {
@@ -240,10 +242,10 @@
   <form>
     <h2> JavaScript Stats Calculator</h2>
     Enter a comma-separated list of numbers:  
-    <input name="Numbers" value="" maxlength="25" size=25>
+    <input name="Numbers" value="" id="csv" maxlength="25" size=25>
     <p>
       Click this button to calculate some basic statistics on the numbers  
-      <input name="calc" value="Calculate" type=button onClick=AnalyzeDataPointsFromForm(this.form)>
+      <input name="calc" value="Calculate" type=button onClick="AnalyzeDataPointsFromForm(this.form);"">
     </p>
   </form>
 

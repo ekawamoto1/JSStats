@@ -44,6 +44,10 @@ use textarea element to render a string's line breaks without reformatting as HT
 
 use of textarea tag: [HTML textarea Tag](https://www.w3schools.com/tags/tag_textarea.asp)
 
+use of onclick event: [onclick Event](https://www.w3schools.com/jsref/event_onclick.asp)
+
+clearing input type=file field: [How can I clear an HTML file input with JavaScript?](https://stackoverflow.com/questions/1703228/how-can-i-clear-an-html-file-input-with-javascript/16222877)
+
 ## Running Journal
 
 Fri 07/17: added ability to output to HTML document without overwriting it, replacing use of alert pop-up windows (whose contents cannot be copied-and-pasted)
