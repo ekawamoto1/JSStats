@@ -95,6 +95,60 @@
       return median;
     }
 
+    function PrintDataPoints()
+    {
+      var outStr = "";
+      var n = arguments.length;
+
+      if (n > 0)
+      {
+        if (n < 10)  // print all data points
+        {
+          for (var i = 0; i < n; i++)
+          {
+            outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+          }
+        }
+        else  // just print first and last five data points
+        {
+          for (var i = 0; i < 5; i++)
+          {
+            outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+          }
+          outStr += "    ...\n";
+          for (var i = n - 5; i < n; i++)
+          {
+            outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+          }
+        }
+      }
+
+      return outStr;
+    }
+
+    function PrintOutStats()
+    {
+      var outStr = "";
+      var n = arguments.length;
+      var nArr = [...arguments];
+
+      var minmax = ComputeExtremes(...nArr);
+      var mean = ComputeMean(...nArr);
+      outStr += "\nFor " + n + " data point(s), \n";
+      outStr += "    the maximum is " + minmax[1].toFixed(2) + "\n";
+      outStr += "    the minimum is " + minmax[0].toFixed(2) + "\n";
+      outStr += "    the mean (average) is " + mean.toFixed(2) + "\n";
+      if (n > 1)
+      {
+        var stdev = ComputeStdev(...nArr, mean);
+        outStr += "    the std dev is " + stdev.toFixed(2) + "\n";
+        var med = ComputeMedian(...nArr);
+        outStr += "    the median is " + med.toFixed(2) + "\n";
+      }
+
+      return outStr;
+    }
+
 
     function main1(form)
     {
@@ -114,21 +168,10 @@
       {
         console.log(sArr[i]);
         nArr[i] = parseFloat(sArr[i].trim());
-        outStr += "data point " + (i + 1) + ": " + nArr[i] + "\n";
       }
-      var minmax = ComputeExtremes(...nArr);
-      var mean = ComputeMean(...nArr);
-      outStr += "\nFor " + n + " data point(s), \n";
-      outStr += "    the maximum is " + minmax[1].toFixed(2) + "\n";
-      outStr += "    the minimum is " + minmax[0].toFixed(2) + "\n";
-      outStr += "    the mean (average) is " + mean.toFixed(2) + "\n";
-      if (n > 1)
-      {
-        var stdev = ComputeStdev(...nArr, mean);
-        outStr += "    the std dev is " + stdev.toFixed(2) + "\n";
-        var med = ComputeMedian(...nArr);
-        outStr += "    the median is " + med.toFixed(2) + "\n";
-      }
+
+      outStr += PrintDataPoints(...nArr);
+      outStr += PrintOutStats(...nArr);
 
       alert(outStr);
     }
@@ -164,32 +207,13 @@
             var lStr = lines[line].trim();
             if (lStr.length > 0)
             {
-              //outStr += lStr + "\n";
               nArr[n] = parseFloat(lStr);
               n++;
             }
           }
-          //outStr += n + " elements in nArr\n";
-          //alert(outStr);
 
-          for (var i = 0; i < n; i++)
-          {
-            //nArr[i] = parseFloat(sArr[i].trim());
-            outStr += "data point " + (i + 1) + ": " + nArr[i] + "\n";
-          }
-          var minmax = ComputeExtremes(...nArr);
-          var mean = ComputeMean(...nArr);
-          outStr += "\nFor " + n + " data point(s), \n";
-          outStr += "    the maximum is " + minmax[1].toFixed(2) + "\n";
-          outStr += "    the minimum is " + minmax[0].toFixed(2) + "\n";
-          outStr += "    the mean (average) is " + mean.toFixed(2) + "\n";
-          if (n > 1)
-          {
-            var stdev = ComputeStdev(...nArr, mean);
-            outStr += "    the std dev is " + stdev.toFixed(2) + "\n";
-            var med = ComputeMedian(...nArr);
-            outStr += "    the median is " + med.toFixed(2) + "\n";
-          }
+          outStr += PrintDataPoints(...nArr);
+          outStr += PrintOutStats(...nArr);
 
           alert(outStr);
         };
