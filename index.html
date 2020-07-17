@@ -11,10 +11,8 @@
   <script type="text/javascript">
     function ComputeExtremes()
     {
-      var max = -Infinity;
-      var min = Infinity;
+      var max = -Infinity, min = Infinity;
       var n = arguments.length;
-      // alert ("arguments.length = " + n);
       for (var i = 0; i < n; i++)
       {
         if (arguments[i] > max)
@@ -32,14 +30,19 @@
 
     function ComputeMean()
     {
-      var sum = 0.0;
+      var sum = 0.0, mean = 0.0;
       var n = arguments.length;
-      for (var i = 0; i < n; i++)
+
+      if (n > 0)  // mean only defined if n > 0
       {
-        sum += arguments[i];
+        for (var i = 0; i < n; i++)
+        {
+          sum += arguments[i];
+        }
+        mean = sum / n;
       }
 
-      return sum / n;
+      return mean;  // returns 0 if n < 1
     }
 
     // arguments: inArr, mean (yes, in this order)
@@ -49,50 +52,44 @@
     {
       var sum = 0.0, stdev = 0.0;
       var m = arguments.length;  // this includes the mean, which is the last arg
-      // alert ("arguments.length = " + m);
       avg = arguments[m - 1];
-      for (var i = 0; i < m - 1; i++)
+
+      if (m > 2) // stdev only defined if m - 1 (the number of terms) > 1, or m > 2
       {
-        var term = arguments[i] - avg;
-        sum += term * term;
-      }
-      if (m > 2)
-      {
+        for (var i = 0; i < m - 1; i++)
+        {
+          var term = arguments[i] - avg;
+          sum += term * term;
+        }
         stdev = Math.sqrt((sum / (m - 2)));
       }
 
-      return stdev;
+      return stdev;  // returns 0 if m - 1 < 2, or m < 3
     }
 
     function ComputeMedian()
     {
       var median = 0.0;
       var n = arguments.length;
-      if (n > 1)
+      if (n > 1)  // median only defined if n > 1
       {
         var dArr = [...arguments];  // use spread operator to make deep copy of arguments array
-        //var dArr = arguments.slice();  // why doesn't this work?
-        dArr.sort((a, b) => a - b);  // sorting arguments array did not work - why?
-/*
-        var outStr = "";
-        for (var i = 0; i < n; i++)
-        {
-          outStr += "sorted array element " + (i + 1) + ": " + dArr[i] + "\n";
-        }
-        alert(outStr);
-*/
+        // var dArr = arguments.slice();  // this makes a shallow copy of the immutable arguments array
+        // first, sort the data points
+        dArr.sort((a, b) => a - b);  // arguments array is immutable - cannot be sorted (reordered)
+
         var m = Math.floor(n / 2);
-        if (n % 2 == 1)
+        if (n % 2 == 0)  // if even number of pts, take average of the middle two
+        { 
+          return (dArr[m - 1] + dArr[m]) / 2.0;
+        }
+        else  // if odd number of pts, take the middle one
         {
           return dArr[m];
         }
-        else
-        {
-          return (dArr[m-1] + dArr[m]) / 2.0;
-        }
       }
     
-      return median;
+      return median;  // returns 0 if n < 2
     }
 
     function PrintDataPoints()
@@ -149,12 +146,12 @@
       return outStr;
     }
 
-
+    // for data entered in form as a string of comma-separated values
     function AnalyzeDataPointsFromForm(form)
     {
       var outStr = "";
       var nStr = form.Numbers.value;
-      var sArr = nStr.split(',');
+      var sArr = nStr.split(',');  // returns 1 even if nStr is empty
       var n = sArr.length;
       if (n == 0 || nStr.length == 0)
       {
@@ -176,6 +173,8 @@
       alert(outStr);
     }
 
+    // for data contained in a local .txt file whose name is provided
+    // data is assumed to be one number per line ('\n'-separated values)
     function AnalyzeDataPointsFromFile(form)
     {
       var outStr = "";
@@ -185,8 +184,9 @@
         // var fName = file.name;
         // alert(fName);  // hides path to fName for security reasons
         var reader = new FileReader();
-        reader.onload = function(progressEvent)
+        reader.onload = function(progressEvent)  // this only executes when a file is loaded
         {
+          // entire file is read into a string 'this.result'
           if (this.result.length == 0)
           {
             outStr = "Data file " + file.name + " is empty.";
@@ -194,8 +194,8 @@
             return;
           }
 
-          // Entire file
-          // console.log(this.result);
+          // Entire file - write it out to console for debugging
+          // console.log(this.result);  
 
           // Line by line
           var lines = this.result.split('\n');
@@ -229,7 +229,7 @@
 
   <form>
     <h2> JavaScript Stats Calculator</h2>
-    Enter a set of numbers:
+    Enter a comma-separated list of numbers:  
     <input name="Numbers" value="" maxlength="25" size=25>
     <p>
       Click this button to calculate some basic statistics on the numbers  
