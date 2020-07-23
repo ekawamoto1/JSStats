@@ -11,6 +11,135 @@
 
   <script type="text/javascript">
 
+    class Dataset {
+      constructor(dArr)
+      {
+        this.dArr = dArr;
+        this.numPts = this.dArr.length;
+      }
+
+      GetNumPts()
+      {
+        this.numPts = this.dArr.length;
+        return this.numPts;
+      }
+
+      ClearArray()
+      {
+        this.dArr = [];
+        this.numPts = 0;
+      }
+
+      AddArray(inArr)
+      {
+        this.dArr = inArr;
+        this.numPts = this.dArr.length;
+      }
+
+      GetArray()
+      {
+        return this.dArr;
+      }
+
+      AddPoint(x)
+      {
+        var n = this.dArr.length;
+        this.dArr[n] = x;
+      }
+
+      GetPoint(i)
+      {
+        var x = 0.0;
+        var n = this.dArr.length;
+        if (i >= 0 && i < n)
+        {
+          x = this.dArr[i];
+        }
+
+        return x;
+      }
+
+      ComputeExtremes()
+      {
+        var max = -Infinity, min = Infinity;
+        var n = this.dArr.length;
+        for (var i = 0; i < n; i++)
+        {
+          if (this.dArr[i] > max)
+          {
+            max = this.dArr[i];
+          }
+          if (this.dArr[i] < min)
+          {
+            min = this.dArr[i];
+          }
+        }
+
+        return [min, max];
+      }
+
+      ComputeMean()
+      {
+        var sum = 0.0;
+        this.mean = 0.0;
+        var n = this.dArr.length;
+
+        if (n > 0)  // mean only defined if n > 0
+        {
+          for (var i = 0; i < n; i++)
+          {
+            sum += this.dArr[i];
+          }
+          this.mean = sum / n;
+        }
+
+        return this.mean;  // returns 0 if n < 1
+      }
+
+      ComputeStdev()
+      {
+        var sum = 0.0, stdev = 0.0;
+        var m = this.dArr.length;
+        var avg = this.mean;
+
+        if (m > 1) // stdev only defined if m > 1
+        {
+          for (var i = 0; i < m; i++)
+          {
+            var term = this.dArr[i] - avg;
+            sum += term * term;
+          }
+          stdev = Math.sqrt((sum / (m - 1)));
+        }
+
+        return stdev;  // returns 0 if m < 2
+      }
+
+      ComputeMedian()
+      {
+        var median = 0.0;
+        var n = this.dArr.length;
+        if (n > 1)  // median only defined if n > 1
+        {
+          this.dArr.sort((a, b) => a - b);
+
+          var m = Math.floor(n / 2);
+          if (n % 2 == 0)  // if even number of pts, take average of the middle two
+          { 
+            return (this.dArr[m - 1] + this.dArr[m]) / 2.0;
+          }
+          else  // if odd number of pts, take the middle one
+          {
+            return this.dArr[m];
+          }
+        }
+      
+        return median;  // returns 0 if n < 2
+      }
+
+    }  // end of class Dataset
+
+/*
     function ComputeExtremes()
     {
       var max = -Infinity, min = Infinity;
@@ -93,11 +222,15 @@
     
       return median;  // returns 0 if n < 2
     }
+*/
+
 
     function PrintDataPoints()
     {
       var outStr = "";
-      var n = arguments.length;
+      //var n = arguments.length;
+      var ds = arguments[0];
+      var n = ds.GetNumPts();
 
       if (n > 0)
       {
@@ -105,19 +238,22 @@
         {
           for (var i = 0; i < n; i++)
           {
-            outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+            //outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+            outStr += "Data point " + (i + 1) + ": " + ds.GetPoint(i).toFixed(2) + "\n";
           }
         }
         else  // just print first and last five data points
         {
           for (var i = 0; i < 5; i++)
           {
-            outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+            //outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+            outStr += "Data point " + (i + 1) + ": " + ds.GetPoint(i).toFixed(2) + "\n";
           }
           outStr += "    ...\n";
           for (var i = n - 5; i < n; i++)
           {
-            outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+            //outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
+            outStr += "Data point " + (i + 1) + ": " + ds.GetPoint(i).toFixed(2) + "\n";
           }
         }
       }
@@ -128,20 +264,23 @@
     function PrintOutStats()
     {
       var outStr = "";
-      var n = arguments.length;
-      var nArr = [...arguments];
+      //var n = arguments.length;
+      //var nArr = [...arguments];
+      var ds = arguments[0];
+      var n = ds.GetNumPts();
+      //alert("n = " + n);
 
-      var minmax = ComputeExtremes(...nArr);
-      var mean = ComputeMean(...nArr);
+      var minmax = ds.ComputeExtremes(); // ComputeExtremes(...nArr);
+      var mean = ds.ComputeMean(); // ComputeMean(...nArr);
       outStr += "\nFor " + n + " data point(s), \n";
       outStr += "    the maximum is " + minmax[1].toFixed(2) + "\n";
       outStr += "    the minimum is " + minmax[0].toFixed(2) + "\n";
       outStr += "    the mean (average) is " + mean.toFixed(2) + "\n";
       if (n > 1)
       {
-        var stdev = ComputeStdev(...nArr, mean);
+        var stdev = ds.ComputeStdev(); // ComputeStdev(...nArr, mean);
         outStr += "    the std dev is " + stdev.toFixed(2) + "\n";
-        var med = ComputeMedian(...nArr);
+        var med = ds.ComputeMedian(); // ComputeMedian(...nArr);
         outStr += "    the median is " + med.toFixed(2) + "\n";
       }
 
@@ -167,15 +306,17 @@
         return;
       }
 
-      var nArr = new Array(n);
+      //var nArr = new Array(n);
+      var ds = new Dataset([]);
       for (var i = 0; i < n; i++)
       {
         console.log(sArr[i]);
-        nArr[i] = parseFloat(sArr[i].trim());
+        //nArr[i] = parseFloat(sArr[i].trim());
+        ds.AddPoint(parseFloat(sArr[i].trim()));
       }
 
-      outStr += PrintDataPoints(...nArr);
-      outStr += PrintOutStats(...nArr);
+      outStr += PrintDataPoints(ds); // PrintDataPoints(...nArr);
+      outStr += PrintOutStats(ds); // PrintOutStats(...nArr);
 
       //alert(outStr);
       var outputString = document.getElementById('output');
@@ -213,7 +354,8 @@
 
           // Line by line
           var lines = this.result.split('\n');
-          var nArr = [];
+          //var nArr = [];
+          var ds = new Dataset([]);
           var n = 0;
           for (var line = 0; line < lines.length; line++)
           {
@@ -221,13 +363,14 @@
             var lStr = lines[line].trim();
             if (lStr.length > 0)
             {
-              nArr[n] = parseFloat(lStr);
+              //nArr[n] = parseFloat(lStr);
+              ds.AddPoint(parseFloat(lStr));
               n++;
             }
           }
 
-          outStr += PrintDataPoints(...nArr);
-          outStr += PrintOutStats(...nArr);
+          outStr += PrintDataPoints(ds); // PrintDataPoints(...nArr);
+          outStr += PrintOutStats(ds); // PrintOutStats(...nArr);
 
           //alert(outStr);
           var outputString = document.getElementById('output');

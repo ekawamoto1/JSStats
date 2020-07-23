@@ -48,7 +48,14 @@ use of onclick event: [onclick Event](https://www.w3schools.com/jsref/event_oncl
 
 clearing input type=file field: [How can I clear an HTML file input with JavaScript?](https://stackoverflow.com/questions/1703228/how-can-i-clear-an-html-file-input-with-javascript/16222877)
 
+OOP in JS: [Introduction to Object Oriented Programming in JavaScript](https://www.geeksforgeeks.org/introduction-object-oriented-programming-javascript/)
+
+JS is a prototype-based, not a class-based, language: [Object Oriented Programming in JavaScript – Explained with Examples](https://www.freecodecamp.org/news/how-javascript-implements-oop/)
+
+
+
 ## Running Journal
+Thu 07/23: placed data array and associated methods into a Dataset class
 
 Fri 07/17: added ability to output to HTML document without overwriting it, replacing use of alert pop-up windows (whose contents cannot be copied-and-pasted)
 
