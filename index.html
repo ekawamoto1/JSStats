@@ -140,10 +140,9 @@
     }  // end of class Dataset
 
 
-    function PrintDataPoints()
+    function PrintDataPoints(ds)
     {
       var outStr = "";
-      var ds = arguments[0];
       var n = ds.GetNumPts();
 
       if (n > 0)
@@ -172,10 +171,9 @@
       return outStr;
     }
 
-    function PrintOutStats()
+    function PrintOutStats(ds)
     {
       var outStr = "";
-      var ds = arguments[0];
       var n = ds.GetNumPts();
 
       var minmax = ds.ComputeExtremes();
