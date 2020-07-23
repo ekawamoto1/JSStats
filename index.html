@@ -139,96 +139,10 @@
 
     }  // end of class Dataset
 
-/*
-    function ComputeExtremes()
-    {
-      var max = -Infinity, min = Infinity;
-      var n = arguments.length;
-      for (var i = 0; i < n; i++)
-      {
-        if (arguments[i] > max)
-        {
-          max = arguments[i];
-        }
-        if (arguments[i] < min)
-        {
-          min = arguments[i];
-        }
-      }
-
-      return [min, max];
-    }
-
-    function ComputeMean()
-    {
-      var sum = 0.0, mean = 0.0;
-      var n = arguments.length;
-
-      if (n > 0)  // mean only defined if n > 0
-      {
-        for (var i = 0; i < n; i++)
-        {
-          sum += arguments[i];
-        }
-        mean = sum / n;
-      }
-
-      return mean;  // returns 0 if n < 1
-    }
-
-    // arguments: inArr, mean (yes, in this order)
-    // inArr contains the numbers
-    // mean is their average
-    function ComputeStdev()
-    {
-      var sum = 0.0, stdev = 0.0;
-      var m = arguments.length;  // this includes the mean, which is the last arg
-      avg = arguments[m - 1];
-
-      if (m > 2) // stdev only defined if m - 1 (the number of terms) > 1, or m > 2
-      {
-        for (var i = 0; i < m - 1; i++)
-        {
-          var term = arguments[i] - avg;
-          sum += term * term;
-        }
-        stdev = Math.sqrt((sum / (m - 2)));
-      }
-
-      return stdev;  // returns 0 if m - 1 < 2, or m < 3
-    }
-
-    function ComputeMedian()
-    {
-      var median = 0.0;
-      var n = arguments.length;
-      if (n > 1)  // median only defined if n > 1
-      {
-        var dArr = [...arguments];  // use spread operator to make deep copy of arguments array
-        // var dArr = arguments.slice();  // this makes a shallow copy of the immutable arguments array
-        // first, sort the data points
-        dArr.sort((a, b) => a - b);  // arguments array is immutable - cannot be sorted (reordered)
-
-        var m = Math.floor(n / 2);
-        if (n % 2 == 0)  // if even number of pts, take average of the middle two
-        { 
-          return (dArr[m - 1] + dArr[m]) / 2.0;
-        }
-        else  // if odd number of pts, take the middle one
-        {
-          return dArr[m];
-        }
-      }
-    
-      return median;  // returns 0 if n < 2
-    }
-*/
-
 
     function PrintDataPoints()
     {
       var outStr = "";
-      //var n = arguments.length;
       var ds = arguments[0];
       var n = ds.GetNumPts();
 
@@ -238,7 +152,6 @@
         {
           for (var i = 0; i < n; i++)
           {
-            //outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
             outStr += "Data point " + (i + 1) + ": " + ds.GetPoint(i).toFixed(2) + "\n";
           }
         }
@@ -246,13 +159,11 @@
         {
           for (var i = 0; i < 5; i++)
           {
-            //outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
             outStr += "Data point " + (i + 1) + ": " + ds.GetPoint(i).toFixed(2) + "\n";
           }
           outStr += "    ...\n";
           for (var i = n - 5; i < n; i++)
           {
-            //outStr += "Data point " + (i + 1) + ": " + arguments[i].toFixed(2) + "\n";
             outStr += "Data point " + (i + 1) + ": " + ds.GetPoint(i).toFixed(2) + "\n";
           }
         }
@@ -264,23 +175,20 @@
     function PrintOutStats()
     {
       var outStr = "";
-      //var n = arguments.length;
-      //var nArr = [...arguments];
       var ds = arguments[0];
       var n = ds.GetNumPts();
-      //alert("n = " + n);
 
-      var minmax = ds.ComputeExtremes(); // ComputeExtremes(...nArr);
-      var mean = ds.ComputeMean(); // ComputeMean(...nArr);
+      var minmax = ds.ComputeExtremes();
+      var mean = ds.ComputeMean();
       outStr += "\nFor " + n + " data point(s), \n";
       outStr += "    the maximum is " + minmax[1].toFixed(2) + "\n";
       outStr += "    the minimum is " + minmax[0].toFixed(2) + "\n";
       outStr += "    the mean (average) is " + mean.toFixed(2) + "\n";
       if (n > 1)
       {
-        var stdev = ds.ComputeStdev(); // ComputeStdev(...nArr, mean);
+        var stdev = ds.ComputeStdev();
         outStr += "    the std dev is " + stdev.toFixed(2) + "\n";
-        var med = ds.ComputeMedian(); // ComputeMedian(...nArr);
+        var med = ds.ComputeMedian();
         outStr += "    the median is " + med.toFixed(2) + "\n";
       }
 
@@ -306,17 +214,15 @@
         return;
       }
 
-      //var nArr = new Array(n);
       var ds = new Dataset([]);
       for (var i = 0; i < n; i++)
       {
         console.log(sArr[i]);
-        //nArr[i] = parseFloat(sArr[i].trim());
         ds.AddPoint(parseFloat(sArr[i].trim()));
       }
 
-      outStr += PrintDataPoints(ds); // PrintDataPoints(...nArr);
-      outStr += PrintOutStats(ds); // PrintOutStats(...nArr);
+      outStr += PrintDataPoints(ds);
+      outStr += PrintOutStats(ds);
 
       //alert(outStr);
       var outputString = document.getElementById('output');
@@ -354,7 +260,6 @@
 
           // Line by line
           var lines = this.result.split('\n');
-          //var nArr = [];
           var ds = new Dataset([]);
           var n = 0;
           for (var line = 0; line < lines.length; line++)
@@ -363,14 +268,13 @@
             var lStr = lines[line].trim();
             if (lStr.length > 0)
             {
-              //nArr[n] = parseFloat(lStr);
               ds.AddPoint(parseFloat(lStr));
               n++;
             }
           }
 
-          outStr += PrintDataPoints(ds); // PrintDataPoints(...nArr);
-          outStr += PrintOutStats(ds); // PrintOutStats(...nArr);
+          outStr += PrintDataPoints(ds);
+          outStr += PrintOutStats(ds);
 
           //alert(outStr);
           var outputString = document.getElementById('output');
