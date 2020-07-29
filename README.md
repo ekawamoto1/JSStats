@@ -52,9 +52,14 @@ OOP in JS: [Introduction to Object Oriented Programming in JavaScript](https://w
 
 JS is a prototype-based, not a class-based, language: [Object Oriented Programming in JavaScript – Explained with Examples](https://www.freecodecamp.org/news/how-javascript-implements-oop/)
 
+Google Apps Script is a JavaScript-based API for coding macros in Google Sheets, much like Visual Basic for Applications is the API for coding macros in Microsoft Excel, Word, etc.: [Extending Google Sheets](https://developers.google.com/apps-script/guides/sheets)
+
+Google Apps Script Reference - Spreadsheet service, Range object: [Class Range](https://developers.google.com/apps-script/reference/spreadsheet/range)
 
 
 ## Running Journal
+Sat 07/25: used Dataset class in a Google Sheets macro to analyze data entered in a column of a spreadsheet
+
 Thu 07/23: placed data array and associated methods into a Dataset class
 
 Fri 07/17: added ability to output to HTML document without overwriting it, replacing use of alert pop-up windows (whose contents cannot be copied-and-pasted)
